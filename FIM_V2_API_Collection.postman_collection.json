@@ -1,0 +1,682 @@
+{
+	"info": {
+		"_postman_id": "164f6dbc-3717-43ed-a4b1-0adeb90c4396",
+		"name": "FIM_V2_API_Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AUTH CALL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.text();\r",
+							"pm.environment.set(\"authTokenValue\", data);\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ContentType",
+						"value": "application/x-www-form-urlencoded",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "token",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"description": "pod4",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"description": "pod4",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{apigatewayhost}}/auth",
+					"protocol": "https",
+					"host": [
+						"{{apigatewayhost}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get incident using /fim/v2/incidents/search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"incidentId\", jsonData[0].id);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "with user qualys_app",
+						"key": "Authorization",
+						"value": "Bearer {{authTokenValue}}"
+					},
+					{
+						"description": "with user fm_ac",
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmbV9hYyIsImxvZ2luUmVzcG9uc2UiOiJTVUNDRVNTRlVMIiwic3VjY2Vzc2Z1bEF1dGhlbnRpY2F0aW9uSGFuZGxlcnMiOlsiQXV0aEhhbmRsZXIiXSwiaXNzIjoiaHR0cHM6XC9cL2xvY2FsaG9zdDo1MDIxNVwvcWFzIiwiaXBBZGRyZXNzIjoiIiwiY3JlZGVudGlhbFR5cGUiOiJRVXNlcm5hbWVQYXNzd29yZENyZWRlbnRpYWwiLCJhdWQiOiJodHRwczpcL1wvbG9jYWxob3N0OjUwMjE1XC9xYXMiLCJtb2R1bGVzQWxsb3dlZCI6WyJBRE1JTiIsIkFTU0VUIElOVkVOVE9SWSIsIlBDIFNDQU5ORVIiLCJDQSIsIklPQyIsIlBDIEFHRU5UIiwiUE9SVEFMIFRBR0dJTkciLCJUSFJFQVQgUFJPVEVDVCIsIlZNIEFHRU5UIiwiUkVQT1JUIENFTlRFUiIsIlZNIFNDQU5ORVIiLCJGSU0iLCJUSFJFQVRfUFJPVEVDVCIsIlZNIiwiQVBJIiwiQVNTRVRfTUFOQUdFTUVOVCIsIlBDIiwiUENJIl0sImF1dGhlbnRpY2F0aW9uTWV0aG9kIjoiQXV0aEhhbmRsZXIiLCJzZXNzaW9uRXhwaXJhdGlvbiI6IjYwIiwic3Vic2NyaXB0aW9uVXVpZCI6IjI2OTc3M2I4LWU3NjctZDBmYS04MDJkLTZiNzM1YTBlYzMyYyIsImlzVGd0RXhwaXJlZCI6InRydWUiLCJzdWJzY3JpcHRpb25JZCI6NTIyNzU3LCJleHAiOjE1NDk1NDQ5OTAsImlhdCI6MTU0OTUzMDU5MCwianRpIjoiVEdULTMzNy1UOU44RlYwNkp6QmtVOGF6QzFGdzNDOVF3NnVPTUZWTGRwQjJOVjl6VkJmVnpQS1FSSjg5YWd2dW9oVFk3ZW1nLWNZLXFhczAzIn0=.o_WG5H-JruLHmp7hOyT7jds60anZdDC4Z0OelRpO3XWpjqw1MsYqqAta3YbHqS3BgOmWH-l8o7krxZOZ-z4uCA",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{apigatewayhost}}/fim/v2/incidents/search",
+					"protocol": "https",
+					"host": [
+						"{{apigatewayhost}}"
+					],
+					"path": [
+						"fim",
+						"v2",
+						"incidents",
+						"search"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "filterToDate: ['2019-01-10T00:00:00.000Z'..'2019-02-10T12:29:59.999Z'] ",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get event count of an incident",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authTokenValue}}",
+						"description": "with user qualys_app"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmbV9hYyIsImxvZ2luUmVzcG9uc2UiOiJTVUNDRVNTRlVMIiwic3VjY2Vzc2Z1bEF1dGhlbnRpY2F0aW9uSGFuZGxlcnMiOlsiQXV0aEhhbmRsZXIiXSwiaXNzIjoiaHR0cHM6XC9cL2xvY2FsaG9zdDo1MDIxNVwvcWFzIiwiaXBBZGRyZXNzIjoiIiwiY3JlZGVudGlhbFR5cGUiOiJRVXNlcm5hbWVQYXNzd29yZENyZWRlbnRpYWwiLCJhdWQiOiJodHRwczpcL1wvbG9jYWxob3N0OjUwMjE1XC9xYXMiLCJtb2R1bGVzQWxsb3dlZCI6WyJBRE1JTiIsIkFTU0VUIElOVkVOVE9SWSIsIlBDIFNDQU5ORVIiLCJDQSIsIklPQyIsIlBDIEFHRU5UIiwiUE9SVEFMIFRBR0dJTkciLCJUSFJFQVQgUFJPVEVDVCIsIlZNIEFHRU5UIiwiUkVQT1JUIENFTlRFUiIsIlZNIFNDQU5ORVIiLCJGSU0iLCJUSFJFQVRfUFJPVEVDVCIsIlZNIiwiQVBJIiwiQVNTRVRfTUFOQUdFTUVOVCIsIlBDIiwiUENJIl0sImF1dGhlbnRpY2F0aW9uTWV0aG9kIjoiQXV0aEhhbmRsZXIiLCJzZXNzaW9uRXhwaXJhdGlvbiI6IjYwIiwic3Vic2NyaXB0aW9uVXVpZCI6IjI2OTc3M2I4LWU3NjctZDBmYS04MDJkLTZiNzM1YTBlYzMyYyIsImlzVGd0RXhwaXJlZCI6InRydWUiLCJzdWJzY3JpcHRpb25JZCI6NTIyNzU3LCJleHAiOjE1NDk1NDQ5OTAsImlhdCI6MTU0OTUzMDU5MCwianRpIjoiVEdULTMzNy1UOU44RlYwNkp6QmtVOGF6QzFGdzNDOVF3NnVPTUZWTGRwQjJOVjl6VkJmVnpQS1FSSjg5YWd2dW9oVFk3ZW1nLWNZLXFhczAzIn0=.o_WG5H-JruLHmp7hOyT7jds60anZdDC4Z0OelRpO3XWpjqw1MsYqqAta3YbHqS3BgOmWH-l8o7krxZOZ-z4uCA",
+						"description": "with user fm_ac",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{apigatewayhost}}/fim/v2/incidents/{{incidentId}}/events/count",
+					"protocol": "https",
+					"host": [
+						"{{apigatewayhost}}"
+					],
+					"path": [
+						"fim",
+						"v2",
+						"incidents",
+						"{{incidentId}}",
+						"events",
+						"count"
+					],
+					"query": [
+						{
+							"key": " ",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get events for an incident",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "with user qualys_app",
+						"key": "Authorization",
+						"value": "Bearer {{authTokenValue}}"
+					},
+					{
+						"description": "with user fm_ac",
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmbV9hYyIsImxvZ2luUmVzcG9uc2UiOiJTVUNDRVNTRlVMIiwic3VjY2Vzc2Z1bEF1dGhlbnRpY2F0aW9uSGFuZGxlcnMiOlsiQXV0aEhhbmRsZXIiXSwiaXNzIjoiaHR0cHM6XC9cL2xvY2FsaG9zdDo1MDIxNVwvcWFzIiwiaXBBZGRyZXNzIjoiIiwiY3JlZGVudGlhbFR5cGUiOiJRVXNlcm5hbWVQYXNzd29yZENyZWRlbnRpYWwiLCJhdWQiOiJodHRwczpcL1wvbG9jYWxob3N0OjUwMjE1XC9xYXMiLCJtb2R1bGVzQWxsb3dlZCI6WyJBRE1JTiIsIkFTU0VUIElOVkVOVE9SWSIsIlBDIFNDQU5ORVIiLCJDQSIsIklPQyIsIlBDIEFHRU5UIiwiUE9SVEFMIFRBR0dJTkciLCJUSFJFQVQgUFJPVEVDVCIsIlZNIEFHRU5UIiwiUkVQT1JUIENFTlRFUiIsIlZNIFNDQU5ORVIiLCJGSU0iLCJUSFJFQVRfUFJPVEVDVCIsIlZNIiwiQVBJIiwiQVNTRVRfTUFOQUdFTUVOVCIsIlBDIiwiUENJIl0sImF1dGhlbnRpY2F0aW9uTWV0aG9kIjoiQXV0aEhhbmRsZXIiLCJzZXNzaW9uRXhwaXJhdGlvbiI6IjYwIiwic3Vic2NyaXB0aW9uVXVpZCI6IjI2OTc3M2I4LWU3NjctZDBmYS04MDJkLTZiNzM1YTBlYzMyYyIsImlzVGd0RXhwaXJlZCI6InRydWUiLCJzdWJzY3JpcHRpb25JZCI6NTIyNzU3LCJleHAiOjE1NDk1NDQ5OTAsImlhdCI6MTU0OTUzMDU5MCwianRpIjoiVEdULTMzNy1UOU44RlYwNkp6QmtVOGF6QzFGdzNDOVF3NnVPTUZWTGRwQjJOVjl6VkJmVnpQS1FSSjg5YWd2dW9oVFk3ZW1nLWNZLXFhczAzIn0=.o_WG5H-JruLHmp7hOyT7jds60anZdDC4Z0OelRpO3XWpjqw1MsYqqAta3YbHqS3BgOmWH-l8o7krxZOZ-z4uCA",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t \r\n     \"pageSize\":9\r\n\t\t\r\n}"
+				},
+				"url": {
+					"raw": "https://{{apigatewayhost}}/fim/v2/incidents/{{incidentId}}/events/search?",
+					"protocol": "https",
+					"host": [
+						"{{apigatewayhost}}"
+					],
+					"path": [
+						"fim",
+						"v2",
+						"incidents",
+						"{{incidentId}}",
+						"events",
+						"search"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						},
+						{
+							"key": "filter",
+							"value": "action%3AAttribut",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get incidents count with given filter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authTokenValue}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmbV9hYyIsImxvZ2luUmVzcG9uc2UiOiJTVUNDRVNTRlVMIiwic3VjY2Vzc2Z1bEF1dGhlbnRpY2F0aW9uSGFuZGxlcnMiOlsiQXV0aEhhbmRsZXIiXSwiaXNzIjoiaHR0cHM6XC9cL2xvY2FsaG9zdDo1MDIxNVwvcWFzIiwiaXBBZGRyZXNzIjoiIiwiY3JlZGVudGlhbFR5cGUiOiJRVXNlcm5hbWVQYXNzd29yZENyZWRlbnRpYWwiLCJhdWQiOiJodHRwczpcL1wvbG9jYWxob3N0OjUwMjE1XC9xYXMiLCJtb2R1bGVzQWxsb3dlZCI6WyJBRE1JTiIsIkFTU0VUIElOVkVOVE9SWSIsIlBDIFNDQU5ORVIiLCJDQSIsIklPQyIsIlBDIEFHRU5UIiwiUE9SVEFMIFRBR0dJTkciLCJUSFJFQVQgUFJPVEVDVCIsIlZNIEFHRU5UIiwiUkVQT1JUIENFTlRFUiIsIlZNIFNDQU5ORVIiLCJGSU0iLCJUSFJFQVRfUFJPVEVDVCIsIlZNIiwiQVBJIiwiQVNTRVRfTUFOQUdFTUVOVCIsIlBDIiwiUENJIl0sImF1dGhlbnRpY2F0aW9uTWV0aG9kIjoiQXV0aEhhbmRsZXIiLCJzZXNzaW9uRXhwaXJhdGlvbiI6IjYwIiwic3Vic2NyaXB0aW9uVXVpZCI6IjI2OTc3M2I4LWU3NjctZDBmYS04MDJkLTZiNzM1YTBlYzMyYyIsImlzVGd0RXhwaXJlZCI6InRydWUiLCJzdWJzY3JpcHRpb25JZCI6NTIyNzU3LCJleHAiOjE1NDk1NDQ5OTAsImlhdCI6MTU0OTUzMDU5MCwianRpIjoiVEdULTMzNy1UOU44RlYwNkp6QmtVOGF6QzFGdzNDOVF3NnVPTUZWTGRwQjJOVjl6VkJmVnpQS1FSSjg5YWd2dW9oVFk3ZW1nLWNZLXFhczAzIn0=.o_WG5H-JruLHmp7hOyT7jds60anZdDC4Z0OelRpO3XWpjqw1MsYqqAta3YbHqS3BgOmWH-l8o7krxZOZ-z4uCA",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"filter\":\"type:DEFAULT and status:CLOSED\"\n}"
+				},
+				"url": {
+					"raw": "https://{{apigatewayhost}}/fim/v2/incidents/count",
+					"protocol": "https",
+					"host": [
+						"{{apigatewayhost}}"
+					],
+					"path": [
+						"fim",
+						"v2",
+						"incidents",
+						"count"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "dateTime%3A%20%5B'2018-01-10T00%3A00%3A00.000Z'..'2019-02-12T12%3A29%3A59.999Z'%5D%20and%20approvalType%3A%20Manual",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get events with given filter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"eventId\", jsonData[0].data.id);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "with user qualys_app",
+						"key": "Authorization",
+						"value": "Bearer {{authTokenValue}}"
+					},
+					{
+						"description": "with user fm_ac",
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmbV9hYyIsImxvZ2luUmVzcG9uc2UiOiJTVUNDRVNTRlVMIiwic3VjY2Vzc2Z1bEF1dGhlbnRpY2F0aW9uSGFuZGxlcnMiOlsiQXV0aEhhbmRsZXIiXSwiaXNzIjoiaHR0cHM6XC9cL2xvY2FsaG9zdDo1MDIxNVwvcWFzIiwiaXBBZGRyZXNzIjoiIiwiY3JlZGVudGlhbFR5cGUiOiJRVXNlcm5hbWVQYXNzd29yZENyZWRlbnRpYWwiLCJhdWQiOiJodHRwczpcL1wvbG9jYWxob3N0OjUwMjE1XC9xYXMiLCJtb2R1bGVzQWxsb3dlZCI6WyJBRE1JTiIsIkFTU0VUIElOVkVOVE9SWSIsIlBDIFNDQU5ORVIiLCJDQSIsIklPQyIsIlBDIEFHRU5UIiwiUE9SVEFMIFRBR0dJTkciLCJUSFJFQVQgUFJPVEVDVCIsIlZNIEFHRU5UIiwiUkVQT1JUIENFTlRFUiIsIlZNIFNDQU5ORVIiLCJGSU0iLCJUSFJFQVRfUFJPVEVDVCIsIlZNIiwiQVBJIiwiQVNTRVRfTUFOQUdFTUVOVCIsIlBDIiwiUENJIl0sImF1dGhlbnRpY2F0aW9uTWV0aG9kIjoiQXV0aEhhbmRsZXIiLCJzZXNzaW9uRXhwaXJhdGlvbiI6IjYwIiwic3Vic2NyaXB0aW9uVXVpZCI6IjI2OTc3M2I4LWU3NjctZDBmYS04MDJkLTZiNzM1YTBlYzMyYyIsImlzVGd0RXhwaXJlZCI6InRydWUiLCJzdWJzY3JpcHRpb25JZCI6NTIyNzU3LCJleHAiOjE1NDk1NDQ5OTAsImlhdCI6MTU0OTUzMDU5MCwianRpIjoiVEdULTMzNy1UOU44RlYwNkp6QmtVOGF6QzFGdzNDOVF3NnVPTUZWTGRwQjJOVjl6VkJmVnpQS1FSSjg5YWd2dW9oVFk3ZW1nLWNZLXFhczAzIn0=.o_WG5H-JruLHmp7hOyT7jds60anZdDC4Z0OelRpO3XWpjqw1MsYqqAta3YbHqS3BgOmWH-l8o7krxZOZ-z4uCA",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"pageSize\":8,\n     \"filter\":\"dateTime:['2018-11-09T00:30:00.000Z'..'2021-03-10T00:29:59.999Z']\",\n      \"sort\":\"[{\\\"dateTime\\\":\\\"asc\\\"}]\"\n     \n\t\n}"
+				},
+				"url": {
+					"raw": "https://{{apigatewayhost}}/fim/v2/events/search?",
+					"protocol": "https",
+					"host": [
+						"{{apigatewayhost}}"
+					],
+					"path": [
+						"fim",
+						"v2",
+						"events",
+						"search"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "dateTime:['2018-02-25T18:30:00.000Z'..'2019-06-12T18:29:59.999Z'] AND action:'Create'",
+							"disabled": true
+						},
+						{
+							"key": "pageSize",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "attributes",
+							"value": "id%2CdateTime%2Caction",
+							"disabled": true
+						},
+						{
+							"key": "filter",
+							"value": "dateTime:['2019-02-25T18:30:00.000Z'..'2019-02-\n26T18:29:59.999Z']",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get event details of a particular event : /events/eventId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "with user qualys_app",
+						"key": "Authorization",
+						"value": "Bearer {{authTokenValue}}"
+					},
+					{
+						"description": "with user fm_ac",
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmbV9hYyIsImxvZ2luUmVzcG9uc2UiOiJTVUNDRVNTRlVMIiwic3VjY2Vzc2Z1bEF1dGhlbnRpY2F0aW9uSGFuZGxlcnMiOlsiQXV0aEhhbmRsZXIiXSwiaXNzIjoiaHR0cHM6XC9cL2xvY2FsaG9zdDo1MDIxNVwvcWFzIiwiaXBBZGRyZXNzIjoiIiwiY3JlZGVudGlhbFR5cGUiOiJRVXNlcm5hbWVQYXNzd29yZENyZWRlbnRpYWwiLCJhdWQiOiJodHRwczpcL1wvbG9jYWxob3N0OjUwMjE1XC9xYXMiLCJtb2R1bGVzQWxsb3dlZCI6WyJBRE1JTiIsIkFTU0VUIElOVkVOVE9SWSIsIlBDIFNDQU5ORVIiLCJDQSIsIklPQyIsIlBDIEFHRU5UIiwiUE9SVEFMIFRBR0dJTkciLCJUSFJFQVQgUFJPVEVDVCIsIlZNIEFHRU5UIiwiUkVQT1JUIENFTlRFUiIsIlZNIFNDQU5ORVIiLCJGSU0iLCJUSFJFQVRfUFJPVEVDVCIsIlZNIiwiQVBJIiwiQVNTRVRfTUFOQUdFTUVOVCIsIlBDIiwiUENJIl0sImF1dGhlbnRpY2F0aW9uTWV0aG9kIjoiQXV0aEhhbmRsZXIiLCJzZXNzaW9uRXhwaXJhdGlvbiI6IjYwIiwic3Vic2NyaXB0aW9uVXVpZCI6IjI2OTc3M2I4LWU3NjctZDBmYS04MDJkLTZiNzM1YTBlYzMyYyIsImlzVGd0RXhwaXJlZCI6InRydWUiLCJzdWJzY3JpcHRpb25JZCI6NTIyNzU3LCJleHAiOjE1NDk1NDQ5OTAsImlhdCI6MTU0OTUzMDU5MCwianRpIjoiVEdULTMzNy1UOU44RlYwNkp6QmtVOGF6QzFGdzNDOVF3NnVPTUZWTGRwQjJOVjl6VkJmVnpQS1FSSjg5YWd2dW9oVFk3ZW1nLWNZLXFhczAzIn0=.o_WG5H-JruLHmp7hOyT7jds60anZdDC4Z0OelRpO3XWpjqw1MsYqqAta3YbHqS3BgOmWH-l8o7krxZOZ-z4uCA",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://{{apigatewayhost}}/fim/v2/events/{{eventId}}",
+					"protocol": "https",
+					"host": [
+						"{{apigatewayhost}}"
+					],
+					"path": [
+						"fim",
+						"v2",
+						"events",
+						"{{eventId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get event Count without any filers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authTokenValue}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmbV9hYyIsImxvZ2luUmVzcG9uc2UiOiJTVUNDRVNTRlVMIiwic3VjY2Vzc2Z1bEF1dGhlbnRpY2F0aW9uSGFuZGxlcnMiOlsiQXV0aEhhbmRsZXIiXSwiaXNzIjoiaHR0cHM6XC9cL2xvY2FsaG9zdDo1MDIxNVwvcWFzIiwiaXBBZGRyZXNzIjoiIiwiY3JlZGVudGlhbFR5cGUiOiJRVXNlcm5hbWVQYXNzd29yZENyZWRlbnRpYWwiLCJhdWQiOiJodHRwczpcL1wvbG9jYWxob3N0OjUwMjE1XC9xYXMiLCJtb2R1bGVzQWxsb3dlZCI6WyJBRE1JTiIsIkFTU0VUIElOVkVOVE9SWSIsIlBDIFNDQU5ORVIiLCJDQSIsIklPQyIsIlBDIEFHRU5UIiwiUE9SVEFMIFRBR0dJTkciLCJUSFJFQVQgUFJPVEVDVCIsIlZNIEFHRU5UIiwiUkVQT1JUIENFTlRFUiIsIlZNIFNDQU5ORVIiLCJGSU0iLCJUSFJFQVRfUFJPVEVDVCIsIlZNIiwiQVBJIiwiQVNTRVRfTUFOQUdFTUVOVCIsIlBDIiwiUENJIl0sImF1dGhlbnRpY2F0aW9uTWV0aG9kIjoiQXV0aEhhbmRsZXIiLCJzZXNzaW9uRXhwaXJhdGlvbiI6IjYwIiwic3Vic2NyaXB0aW9uVXVpZCI6IjI2OTc3M2I4LWU3NjctZDBmYS04MDJkLTZiNzM1YTBlYzMyYyIsImlzVGd0RXhwaXJlZCI6InRydWUiLCJzdWJzY3JpcHRpb25JZCI6NTIyNzU3LCJleHAiOjE1NDk1NDQ5OTAsImlhdCI6MTU0OTUzMDU5MCwianRpIjoiVEdULTMzNy1UOU44RlYwNkp6QmtVOGF6QzFGdzNDOVF3NnVPTUZWTGRwQjJOVjl6VkJmVnpQS1FSSjg5YWd2dW9oVFk3ZW1nLWNZLXFhczAzIn0=.o_WG5H-JruLHmp7hOyT7jds60anZdDC4Z0OelRpO3XWpjqw1MsYqqAta3YbHqS3BgOmWH-l8o7krxZOZ-z4uCA",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{apigatewayhost}}/fim/v2/events/count",
+					"protocol": "https",
+					"host": [
+						"{{apigatewayhost}}"
+					],
+					"path": [
+						"fim",
+						"v2",
+						"events",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get ignored events",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"ignoreEventId\", jsonData[0].data.id);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "with user qualys_app",
+						"key": "Authorization",
+						"value": "Bearer {{authTokenValue}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{apigatewayhost}}/fim/v2/events/ignore/search",
+					"protocol": "https",
+					"host": [
+						"{{apigatewayhost}}"
+					],
+					"path": [
+						"fim",
+						"v2",
+						"events",
+						"ignore",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get ignore event details : /event/ignore/ignoreEventId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "with user qualys_app",
+						"key": "Authorization",
+						"value": "Bearer {{authTokenValue}}"
+					},
+					{
+						"description": "with user fm_ac",
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmbV9hYyIsImxvZ2luUmVzcG9uc2UiOiJTVUNDRVNTRlVMIiwic3VjY2Vzc2Z1bEF1dGhlbnRpY2F0aW9uSGFuZGxlcnMiOlsiQXV0aEhhbmRsZXIiXSwiaXNzIjoiaHR0cHM6XC9cL2xvY2FsaG9zdDo1MDIxNVwvcWFzIiwiaXBBZGRyZXNzIjoiIiwiY3JlZGVudGlhbFR5cGUiOiJRVXNlcm5hbWVQYXNzd29yZENyZWRlbnRpYWwiLCJhdWQiOiJodHRwczpcL1wvbG9jYWxob3N0OjUwMjE1XC9xYXMiLCJtb2R1bGVzQWxsb3dlZCI6WyJBRE1JTiIsIkFTU0VUIElOVkVOVE9SWSIsIlBDIFNDQU5ORVIiLCJDQSIsIklPQyIsIlBDIEFHRU5UIiwiUE9SVEFMIFRBR0dJTkciLCJUSFJFQVQgUFJPVEVDVCIsIlZNIEFHRU5UIiwiUkVQT1JUIENFTlRFUiIsIlZNIFNDQU5ORVIiLCJGSU0iLCJUSFJFQVRfUFJPVEVDVCIsIlZNIiwiQVBJIiwiQVNTRVRfTUFOQUdFTUVOVCIsIlBDIiwiUENJIl0sImF1dGhlbnRpY2F0aW9uTWV0aG9kIjoiQXV0aEhhbmRsZXIiLCJzZXNzaW9uRXhwaXJhdGlvbiI6IjYwIiwic3Vic2NyaXB0aW9uVXVpZCI6IjI2OTc3M2I4LWU3NjctZDBmYS04MDJkLTZiNzM1YTBlYzMyYyIsImlzVGd0RXhwaXJlZCI6InRydWUiLCJzdWJzY3JpcHRpb25JZCI6NTIyNzU3LCJleHAiOjE1NDk1NDQ5OTAsImlhdCI6MTU0OTUzMDU5MCwianRpIjoiVEdULTMzNy1UOU44RlYwNkp6QmtVOGF6QzFGdzNDOVF3NnVPTUZWTGRwQjJOVjl6VkJmVnpQS1FSSjg5YWd2dW9oVFk3ZW1nLWNZLXFhczAzIn0=.o_WG5H-JruLHmp7hOyT7jds60anZdDC4Z0OelRpO3XWpjqw1MsYqqAta3YbHqS3BgOmWH-l8o7krxZOZ-z4uCA",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://{{apigatewayhost}}/fim/v2/events/ignore/{{ignoreEventId}}",
+					"protocol": "https",
+					"host": [
+						"{{apigatewayhost}}"
+					],
+					"path": [
+						"fim",
+						"v2",
+						"events",
+						"ignore",
+						"{{ignoreEventId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get ignore events count",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "with user qualys_app",
+						"key": "Authorization",
+						"value": "Bearer {{authTokenValue}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{apigatewayhost}}/fim/v2/events/ignore/count",
+					"protocol": "https",
+					"host": [
+						"{{apigatewayhost}}"
+					],
+					"path": [
+						"fim",
+						"v2",
+						"events",
+						"ignore",
+						"count"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
